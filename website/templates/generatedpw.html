@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Generated Passwords{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h3 class="mb-4">Generated Passwords</h3>
+
+            {% for i in range(5) %}
+                {% if i < passwords|length %}
+                    <div class="row mb-3">
+                        <div class="col-8">
+                            <input type="text" class="form-control mb-2" value="{{ passwords[i] }}" readonly>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-outline-primary btn-block minimal-btn" onclick="copyToClipboard('{{ passwords[i] }}')">Copy</button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            {% if passwords|length > 5 %}
+                <div class="row mb-3">
+                    <div class="col-2">
+                        <button type="button" class="btn btn-secondary btn-block minimal-btn" id="showHidePasswordsBtn" onclick="togglePasswordsVisibility()">Show All</button>
+                    </div>
+                    <div class="col-2">
+                        <a href="{{ url_for('views.genpass') }}" class="btn btn-secondary btn-block minimal-btn">Back</a>
+                    </div>
+                </div>
+                <div id="hiddenPasswords" style="display: none;">
+                    {% for i in range(5, passwords|length) %}
+                        <div class="row mb-3">
+                            <div class="col-8">
+                                <input type="text" class="form-control mb-2" value="{{ passwords[i] }}" readonly>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary btn-block minimal-btn" onclick="copyToClipboard('{{ passwords[i] }}')">Copy</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row mb-3">
+                    <div class="col-2">
+                        <a href="{{ url_for('views.genpass') }}" class="btn btn-secondary btn-block minimal-btn">Back</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard(text) {
+        var textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Password copied to clipboard!');
+    }
+
+    function togglePasswordsVisibility() {
+        var hiddenPasswordsDiv = document.getElementById('hiddenPasswords');
+        var showHidePasswordsBtn = document.getElementById('showHidePasswordsBtn');
+
+        if (hiddenPasswordsDiv.style.display === 'none') {
+            hiddenPasswordsDiv.style.display = 'block';
+            showHidePasswordsBtn.textContent = 'Hide';
+        } else {
+            hiddenPasswordsDiv.style.display = 'none';
+            showHidePasswordsBtn.textContent = 'Show All';
+        }
+    }
+</script>
+{% endblock %}

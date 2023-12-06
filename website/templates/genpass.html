@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Generate Password{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h3 class="text-center mb-4">Generate Password</h3>
+
+                <div class="form-group">
+                    <label for="pwnums">Numbers of Passwords</label>
+                    <input type="number" class="form-control" id="pwnums" name="pwnums" placeholder="Enter number of passwords">
+                </div>
+
+                <div class="form-group">
+                    <label for="pwlength">Password Length</label>
+                    <input type="number" class="form-control" id="pwlength" name="pwlength" placeholder="Enter password length">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-7">
+                        <label for="keyword">Keyword</label>
+                        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Enter keyword">
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label for="keyword_position">Keyword Position</label>
+                        <select class="form-control" id="keyword_position" name="keyword_position">
+                            <option value="front">Front</option>
+                            <option value="behind">Behind</option>
+                            <option value="between">Between</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="text" name="text">
+                    <label class="form-check-label" for="text">Include Text</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="number" name="number">
+                    <label class="form-check-label" for="number">Include Number</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="special" name="special">
+                    <label class="form-check-label" for="special">Include Special Character</label>
+                </div>
+
+                <div class="mt-4" align="center">
+                    <button type="submit" class="btn btn-primary">Generate Passwords</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
